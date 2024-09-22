@@ -3,6 +3,7 @@ using System;
 
 public partial class MainScene : Node3D
 {
+	private MeshInstance3D DyeSea => GetNode<MeshInstance3D>("%Dye Sea");
 	private CharacterBody3d Character => GetNode<CharacterBody3d>("CharacterBody3D");
 	private PackedScene DeathScreenScene => ResourceLoader.Load<PackedScene>("res://Restart menu/DeathMenu.tscn");
 
@@ -40,7 +41,7 @@ public partial class MainScene : Node3D
 
 	public override void _Process(double delta)
 	{
-		if (_deathScreen == null && Character.GlobalPosition.Y < -10)
+		if (_deathScreen == null && Character.GlobalPosition.Y < DyeSea.GlobalPosition.Y)
 		{
 			AddChild(DeathScreen);
 		}

@@ -9,5 +9,7 @@ public partial class RestartMenu : Control
 	{
 		var mainScene = GetParent<MainScene>();
 		RestartButton.Pressed += mainScene.Restart;
+
+		RestartButton.GrabFocus();
 	}
 }
