@@ -75,7 +75,7 @@ script = ExtResource("1_afiva")
 Character = NodePath("../CharacterBody3D")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterCameraMount"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.942)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, 0.0653591, 4.99947)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1009, 0)
@@ -107,6 +107,7 @@ transform = Transform3D(0.990268, 0.0653378, -0.122883, 0, 0.882948, 0.469472, 0
 shadow_enabled = true
 
 [node name="Obstacle" parent="." instance=ExtResource("4_26d3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.353, 0)
 
 [node name="Obstacle2" parent="." instance=ExtResource("4_26d3h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.65962, 0.353373, -6.47848)
@@ -130,7 +131,7 @@ _oscillate = true
 _oscillationPeriod = 2.0
 
 [node name="End" parent="." instance=ExtResource("4_26d3h")]
-transform = Transform3D(-0.0763361, 0, -0.997082, 0, 1, 0, 0.997082, 0, -0.0763361, 0, 0.353373, -42.9873)
+transform = Transform3D(-0.0763361, 0, -0.997082, 0, 1, 0, 0.997082, 0, -0.0763361, 0, 0.353373, -31.6693)
 
 [node name="WinZone" type="Area3D" parent="End"]
 unique_name_in_owner = true

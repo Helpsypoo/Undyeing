@@ -5,18 +5,37 @@ public partial class CharacterCameraMount : Node3D
 {
 	[Export] private CharacterBody3d Character;
 	[Export] private float _deathPlaneOffset;
+	// [Export] private float _followDampingFactor = 0.5f;
+	[Export] private float _followStrength = 1;
+	private float _maxCameraSpeed = 100;
 	private Vector3 _offset = new Vector3(0, 1, 0);
+
+	private Vector3 _velocity;
+	private Vector3 _acceleration;
+
+	public override void _Ready()
+	{
+		Engine.PhysicsTicksPerSecond = 60;
+		Engine.MaxFps = 60;
+	}
+
 	private MeshInstance3D DyeSea => GetNode<MeshInstance3D>("%Dye Sea");
 	
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (Character.GlobalPosition.Y > DyeSea.GlobalPosition.Y + _deathPlaneOffset)
 		{
-			Position = Character.Position + _offset;
+			var flelta = (float)delta;
+			
+			var separation = Character.GlobalPosition + _offset - GlobalPosition;
+			var length = separation.Length();
+			var speed = Mathf.Pow(length, 4) * _followStrength;
+			speed = Mathf.Min(speed, _maxCameraSpeed); // Cap camera speed
+			var updateDistance = speed * flelta;
+			GlobalPosition +=  separation.Normalized() * updateDistance;
 		}
 		
-		var cameraInputDirection =
-			Input.GetVector("CameraLookLeft", "CameraLookRight", "CameraLookDown", "CameraLookUp");
+		var cameraInputDirection = Input.GetVector("CameraLookLeft", "CameraLookRight", "CameraLookDown", "CameraLookUp");
 		if (cameraInputDirection != Vector2.Zero)
 		{
 			const float deadZone = 0.1f;
