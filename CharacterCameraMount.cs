@@ -15,8 +15,8 @@ public partial class CharacterCameraMount : Node3D
 
 	public override void _Ready()
 	{
-		Engine.PhysicsTicksPerSecond = 60;
-		Engine.MaxFps = 60;
+		Engine.PhysicsTicksPerSecond = 144;
+		Engine.MaxFps = 144;
 	}
 
 	private MeshInstance3D DyeSea => GetNode<MeshInstance3D>("%Dye Sea");
