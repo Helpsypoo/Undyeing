@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://mhhdelr2h3nu"]
+
+[ext_resource type="Script" path="res://Character/CharacterController.cs" id="1_1g0r7"]
+[ext_resource type="PackedScene" uid="uid://ccwxjxbne71ic" path="res://Character/character_model.tscn" id="2_n0nmu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qy34c"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_67kl4"]
+material = SubResource("StandardMaterial3D_qy34c")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q8aif"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dw3rk"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_1g0r7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00746, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_67kl4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00746, 0)
+shape = SubResource("CapsuleShape3D_q8aif")
+
+[node name="Face" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.45, 0, 0, 0, 0.095, 0, 0, 0, 0.45, 0, 1.5608, -0.287103)
+visible = false
+mesh = SubResource("BoxMesh_dw3rk")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00746, 0)
+shape = SubResource("CapsuleShape3D_q8aif")
+
+[node name="character" parent="." instance=ExtResource("2_n0nmu")]
+transform = Transform3D(-0.18, 0, -1.57361e-08, 0, 0.18, 0, 1.57361e-08, 0, -0.18, 0, 0, 0)

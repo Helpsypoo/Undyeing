@@ -4,7 +4,7 @@ using System;
 public partial class MainScene : Node3D
 {
 	private MeshInstance3D DyeSea => GetNode<MeshInstance3D>("%Dye Sea");
-	private CharacterBody3d Character => GetNode<CharacterBody3d>("CharacterBody3D");
+	private CharacterController Character => GetNode<CharacterController>("CharacterBody3D");
 	private PackedScene DeathScreenScene => ResourceLoader.Load<PackedScene>("res://Restart menu/DeathMenu.tscn");
 
 	private Control _deathScreen;

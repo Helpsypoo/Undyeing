@@ -3,7 +3,7 @@ using System;
 
 public partial class CharacterCameraMount : Node3D
 {
-	[Export] private CharacterBody3d Character;
+	[Export] private CharacterController Character;
 	[Export] private float _deathPlaneOffset;
 	// [Export] private float _followDampingFactor = 0.5f;
 	[Export] private float _followStrength = 1;
