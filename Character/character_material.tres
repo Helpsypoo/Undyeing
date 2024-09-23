@@ -2,17 +2,16 @@
 
 [resource]
 transparency = 1
-albedo_color = Color(1, 1, 1, 0.85098)
-metallic_specular = 1.0
+albedo_color = Color(1, 1, 1, 0.258824)
+metallic_specular = 0.0
 roughness = 0.0
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.1
 rim_enabled = true
-clearcoat_enabled = true
 clearcoat_roughness = 0.0
 subsurf_scatter_strength = 1.0
 subsurf_scatter_transmittance_enabled = true
 subsurf_scatter_transmittance_depth = 8.0
 subsurf_scatter_transmittance_boost = 1.0
 refraction_enabled = true
-refraction_scale = 1.0
+refraction_scale = 0.2

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://mhhdelr2h3nu"]
 
 [ext_resource type="Script" path="res://Character/CharacterController.cs" id="1_1g0r7"]
-[ext_resource type="PackedScene" uid="uid://ccwxjxbne71ic" path="res://Character/character_model.tscn" id="2_n0nmu"]
+[ext_resource type="PackedScene" uid="uid://cs4bh5m1ijp1h" path="res://Character/Source/character_model_with_additions.tscn" id="2_iy8aa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qy34c"]
 
@@ -35,5 +35,5 @@ mesh = SubResource("BoxMesh_dw3rk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00746, 0)
 shape = SubResource("CapsuleShape3D_q8aif")
 
-[node name="character" parent="." instance=ExtResource("2_n0nmu")]
-transform = Transform3D(-0.18, 0, -1.57361e-08, 0, 0.18, 0, 1.57361e-08, 0, -0.18, 0, 0, 0)
+[node name="character" parent="." instance=ExtResource("2_iy8aa")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

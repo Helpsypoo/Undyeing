@@ -1,0 +1,11 @@
+[gd_resource type="PlaneMesh" load_steps=2 format=3 uid="uid://cxr5owyp386gl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjfsk"]
+cull_mode = 2
+
+[resource]
+material = SubResource("StandardMaterial3D_rjfsk")
+size = Vector2(0.3, 10)
+subdivide_width = 2
+subdivide_depth = 60
+center_offset = Vector3(0, 0, -5)

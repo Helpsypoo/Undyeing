@@ -1,0 +1,37 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=8 format=3 uid="uid://cp73fbs1jf0rn"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cktq3"]
+animation = &"02 - FALL"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7sws5"]
+animation = &"01 - IDLE"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qdd45"]
+animation = &"03 - RUN"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_1b18l"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_7sws5")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_qdd45")
+blend_point_1/pos = 1.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1yhvf"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jfihc"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"Falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vk5t"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"OnFloor"
+
+[resource]
+"states/02 - Falling/node" = SubResource("AnimationNodeAnimation_cktq3")
+"states/02 - Falling/position" = Vector2(419, -38)
+states/RunBlend/node = SubResource("AnimationNodeBlendSpace1D_1b18l")
+states/RunBlend/position = Vector2(419, 100)
+transitions = ["Start", "RunBlend", SubResource("AnimationNodeStateMachineTransition_1yhvf"), "RunBlend", "02 - Falling", SubResource("AnimationNodeStateMachineTransition_jfihc"), "02 - Falling", "RunBlend", SubResource("AnimationNodeStateMachineTransition_0vk5t")]
+graph_offset = Vector2(-325, -103)
