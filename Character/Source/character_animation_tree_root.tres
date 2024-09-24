@@ -1,7 +1,19 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=8 format=3 uid="uid://cp73fbs1jf0rn"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=15 format=3 uid="uid://cp73fbs1jf0rn"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cktq3"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p5a5i"]
+animation = &"05 - DASH"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5obrr"]
+animation = &"04 - JUMP"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ehxof"]
 animation = &"02 - FALL"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_eq4hs"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_5obrr")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_ehxof")
+blend_point_1/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7sws5"]
 animation = &"01 - IDLE"
@@ -18,20 +30,42 @@ blend_point_1/pos = 1.0
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1yhvf"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jfihc"]
-xfade_time = 0.25
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_05e17"]
+xfade_time = 0.05
 advance_mode = 2
-advance_condition = &"Falling"
+advance_condition = &"Airborne"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vk5t"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hqjpl"]
 xfade_time = 0.25
 advance_mode = 2
 advance_condition = &"OnFloor"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ragow"]
+xfade_time = 0.05
+advance_mode = 2
+advance_condition = &"Dashing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u2plu"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"OnFloor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_migbq"]
+xfade_time = 0.05
+advance_mode = 2
+advance_condition = &"Dashing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dv00m"]
+xfade_time = 0.25
+advance_mode = 2
+advance_condition = &"Airborne"
+
 [resource]
-"states/02 - Falling/node" = SubResource("AnimationNodeAnimation_cktq3")
-"states/02 - Falling/position" = Vector2(419, -38)
+"states/05 - DASH/node" = SubResource("AnimationNodeAnimation_p5a5i")
+"states/05 - DASH/position" = Vector2(666, 25)
+states/Airborne/node = SubResource("AnimationNodeBlendSpace1D_eq4hs")
+states/Airborne/position = Vector2(419, -48)
 states/RunBlend/node = SubResource("AnimationNodeBlendSpace1D_1b18l")
 states/RunBlend/position = Vector2(419, 100)
-transitions = ["Start", "RunBlend", SubResource("AnimationNodeStateMachineTransition_1yhvf"), "RunBlend", "02 - Falling", SubResource("AnimationNodeStateMachineTransition_jfihc"), "02 - Falling", "RunBlend", SubResource("AnimationNodeStateMachineTransition_0vk5t")]
-graph_offset = Vector2(-325, -103)
+transitions = ["Start", "RunBlend", SubResource("AnimationNodeStateMachineTransition_1yhvf"), "RunBlend", "Airborne", SubResource("AnimationNodeStateMachineTransition_05e17"), "Airborne", "RunBlend", SubResource("AnimationNodeStateMachineTransition_hqjpl"), "RunBlend", "05 - DASH", SubResource("AnimationNodeStateMachineTransition_ragow"), "05 - DASH", "RunBlend", SubResource("AnimationNodeStateMachineTransition_u2plu"), "Airborne", "05 - DASH", SubResource("AnimationNodeStateMachineTransition_migbq"), "05 - DASH", "Airborne", SubResource("AnimationNodeStateMachineTransition_dv00m")]
+graph_offset = Vector2(-300, -215)

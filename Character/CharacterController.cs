@@ -48,20 +48,9 @@ public partial class CharacterController : CharacterBody3D
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 		}
-		AnimationTree.Set("parameters/RunBlend/blend_position", velocity.Length() / Speed);
-
-		if (IsOnFloor())
-		{
-			AnimationTree.Set("parameters/conditions/OnFloor", true);
-			AnimationTree.Set("parameters/conditions/Falling", false);
-		}
-		else
-		{
-			AnimationTree.Set("parameters/conditions/OnFloor", false);
-			AnimationTree.Set("parameters/conditions/Falling", true);
-		}
 		
-		// Add the gravity.
+		
+		// Add the gravity
 		if (!onFloor)
 		{
 			velocity += GetGravity() * (float)delta;
@@ -87,11 +76,14 @@ public partial class CharacterController : CharacterBody3D
 			}
 		}
 		
+		// Process dash
 		var seconds = Time.GetTicksMsec() / 1000f;
+		var dashing = false;
 		if (seconds < _lastDashTime + _dashDuration)
 		{
 			var dashVelocity = DashSpeed * (Basis * Vector3.Forward);  
 			velocity = dashVelocity;
+			dashing = true;
 		}
 		else if (Input.IsActionJustPressed("Dash") && _dashesUsed < _maxDashes)
 		{
@@ -99,7 +91,34 @@ public partial class CharacterController : CharacterBody3D
 			velocity = dashVelocity;
 			_dashesUsed++;
 			_lastDashTime = seconds;
+			dashing = true;
 		}
+		
+		// Update animation tree parameters based on speed
+		AnimationTree.Set("parameters/RunBlend/blend_position", velocity.Length() / Speed);
+		AnimationTree.Set("parameters/Airborne/blend_position", (velocity.Y / JumpSpeed) / 2 + 1f);
+		if (IsOnFloor())
+		{
+			AnimationTree.Set("parameters/conditions/OnFloor", true);
+			AnimationTree.Set("parameters/conditions/Airborne", false);
+		}
+		else
+		{
+			AnimationTree.Set("parameters/conditions/OnFloor", false);
+			AnimationTree.Set("parameters/conditions/Airborne", true);
+		}
+
+		if (dashing)
+		{
+			AnimationTree.Set("parameters/conditions/Dashing", true);
+			AnimationTree.Set("parameters/conditions/OnFloor", false);
+			AnimationTree.Set("parameters/conditions/Airborne", false);
+		}
+		else
+		{
+			AnimationTree.Set("parameters/conditions/Dashing", false);
+		}
+		
 
 		Velocity = velocity;
 		MoveAndSlide();
