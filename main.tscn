@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxcveks8xij63"]
+[gd_scene load_steps=21 format=3 uid="uid://bxcveks8xij63"]
 
 [ext_resource type="Script" path="res://MainScene.cs" id="1_0i22a"]
 [ext_resource type="Script" path="res://CharacterCameraMount.cs" id="1_afiva"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Platform.cs" id="5_fgs78"]
 [ext_resource type="Script" path="res://FPSLabel.cs" id="5_koqi5"]
 [ext_resource type="PackedScene" uid="uid://fdcqda2osolj" path="res://win_platform.tscn" id="9_hh0gv"]
+[ext_resource type="Script" path="res://PathRepeater.cs" id="10_rk20r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_va8h5"]
 shader = ExtResource("4_7uc62")
@@ -68,6 +69,13 @@ material = SubResource("ShaderMaterial_gffif")
 size = Vector2(12800, 12800)
 subdivide_width = 320
 subdivide_depth = 320
+
+[sub_resource type="Curve3D" id="Curve3D_a17bu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 30, 0, 5, 0, 0, 0, 0, 0, 0, 30, 0, -50, 0, 0, 0, 0, 0, 0, -30, 0, -50, 0, 0, 0, 0, 0, 0, -30, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_0i22a")
@@ -135,3 +143,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0450566, 1.08016, 0)
 
 [node name="WinPlatform" parent="." instance=ExtResource("9_hh0gv")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.536951, 0, -23.873)
+
+[node name="Platform3" parent="." node_paths=PackedStringArray("_pathFollower") instance=ExtResource("4_26d3h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 11.9667)
+_pathFollower = NodePath("../Path3D/PathFollow3D")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.9667)
+curve = SubResource("Curve3D_a17bu")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 5)
+script = ExtResource("10_rk20r")

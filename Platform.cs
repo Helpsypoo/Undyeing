@@ -11,7 +11,9 @@ public partial class Platform : AnimatableBody3D
 	
 	[Export] private float _rotatePeriod;
 	[Export] private float _rotatePhaseOffset;
-	[Export] private Vector3 _rotateAxis; 
+	[Export] private Vector3 _rotateAxis;
+
+	[Export] private PathFollow3D _pathFollower;
 	
 	public override void _Ready()
 	{
@@ -38,5 +40,10 @@ public partial class Platform : AnimatableBody3D
 		}
 		
 		SetTransform(newTransform);
+		
+		if (_pathFollower != null)
+		{
+			GlobalPosition = _pathFollower.GlobalPosition; 
+		}
 	}
 }
