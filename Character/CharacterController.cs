@@ -1,10 +1,19 @@
 using Godot;
 using System;
+using Microsoft.VisualBasic;
 
 public partial class CharacterController : CharacterBody3D
 {
-	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+	private const float Speed = 5.0f;
+	private const float JumpSpeed = 4.5f;
+	[Export] private int _maxExtraJumps = 1;
+	private int _extraJumpsUsed;
+	
+	private const float DashSpeed = 20f;
+	[Export] private int _maxDashes = 1;
+	[Export] private float _dashDuration = 0.2f;
+	private float _lastDashTime = -999; // Big negative to avoid immediate dashes based on dash timing check
+	private int _dashesUsed;
 	
 	private Camera3D Camera3D => GetViewport().GetCamera3D();
 	private AnimationTree AnimationTree => GetNode<AnimationTree>("character/AnimationTree");
@@ -19,18 +28,8 @@ public partial class CharacterController : CharacterBody3D
 	{
 		Vector3 velocity = Velocity;
 
-		// Add the gravity.
-		if (!IsOnFloor())
-		{
-			velocity += GetGravity() * (float)delta;
-		}
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("Jump") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
-
+		var onFloor = IsOnFloor();
+		
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
@@ -60,6 +59,46 @@ public partial class CharacterController : CharacterBody3D
 		{
 			AnimationTree.Set("parameters/conditions/OnFloor", false);
 			AnimationTree.Set("parameters/conditions/Falling", true);
+		}
+		
+		// Add the gravity.
+		if (!onFloor)
+		{
+			velocity += GetGravity() * (float)delta;
+		}
+		else
+		{
+			_extraJumpsUsed = 0;
+			_dashesUsed = 0;
+		}
+
+		if (Input.IsActionJustPressed("Jump"))
+		{
+			// Handle Jump.
+			if (onFloor)
+			{
+				velocity.Y = JumpSpeed;
+			}
+			// Handle Extra Jump
+			else if (_extraJumpsUsed < _maxExtraJumps)
+			{
+				velocity.Y += JumpSpeed;
+				_extraJumpsUsed++;
+			}
+		}
+		
+		var seconds = Time.GetTicksMsec() / 1000f;
+		if (seconds < _lastDashTime + _dashDuration)
+		{
+			var dashVelocity = DashSpeed * (Basis * Vector3.Forward);  
+			velocity = dashVelocity;
+		}
+		else if (Input.IsActionJustPressed("Dash") && _dashesUsed < _maxDashes)
+		{
+			var dashVelocity = DashSpeed * (Basis * Vector3.Forward);  
+			velocity = dashVelocity;
+			_dashesUsed++;
+			_lastDashTime = seconds;
 		}
 
 		Velocity = velocity;
