@@ -3,27 +3,40 @@ using System;
 
 public partial class Platform : AnimatableBody3D
 {
-	[Export] private bool _oscillate; 
-	[Export] private float _oscillationPeriod;
-	[Export] private float _initialPhaseOffset;
-	private Vector3 _initialPosition;
+	private Transform3D _initialTransform;
+	
+	[Export] private Vector3 _wiggleAmplitude;
+	[Export] private Vector3 _wigglePeriod;
+	[Export] private Vector3 _wigglePhaseOffset;
+	
+	[Export] private float _rotatePeriod;
+	[Export] private float _rotatePhaseOffset;
+	[Export] private Vector3 _rotateAxis; 
 	
 	public override void _Ready()
 	{
-		// Freeze = true;
-		// FreezeMode = FreezeModeEnum.Kinematic;
-		
-		_initialPosition = Position;
-		if (_oscillate && _oscillationPeriod == 0)
-		{
-			GD.PushWarning("_oscillation period cannot be zero. Turning off oscillation.");
-			_oscillate = false;
-		}
+		_initialTransform = GetTransform();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!_oscillate) return;
-		Position = _initialPosition + Vector3.Up * Mathf.Sin(Mathf.Tau * (Time.GetTicksMsec() / 1000f / _oscillationPeriod + _initialPhaseOffset % 1));
+		var seconds = Time.GetTicksMsec() / 1000f;
+
+		var newTransform = _initialTransform;
+		if (_rotatePeriod != 0)
+			newTransform = newTransform.RotatedLocal(_rotateAxis.Normalized(), seconds * Mathf.Tau / _rotatePeriod);
+		
+		if (_wigglePeriod.LengthSquared() != 0)
+		{
+			var wiggleVector = new Vector3(
+				_wigglePeriod.X == 0 ? 0 : _wiggleAmplitude.X * Mathf.Sin(Mathf.Tau * (seconds / _wigglePeriod.X + _wigglePhaseOffset.X % 1)),
+				_wigglePeriod.Y == 0 ? 0 : _wiggleAmplitude.Y * Mathf.Sin(Mathf.Tau * (seconds / _wigglePeriod.Y + _wigglePhaseOffset.Y % 1)),
+				_wigglePeriod.Z == 0 ? 0 : _wiggleAmplitude.Z * Mathf.Sin(Mathf.Tau * (seconds / _wigglePeriod.Z + _wigglePhaseOffset.Z % 1))
+			);
+			
+			newTransform = newTransform.Translated(wiggleVector);
+		}
+		
+		SetTransform(newTransform);
 	}
 }

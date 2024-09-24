@@ -12,11 +12,6 @@ public partial class CharacterController : CharacterBody3D
 	public override void _Ready()
 	{
 		GD.Print("Reddy");
-		
-		var cape = GetNode<SoftBody3D>("character/Base Amature/Skeleton3D/Forearm Left/SoftBody3D");
-		cape.AddCollisionExceptionWith(this);
-		cape = GetNode<SoftBody3D>("character/Base Amature/Skeleton3D/Forearm Right/SoftBody3D");
-		cape.AddCollisionExceptionWith(this);
 		base._Ready();
 	}
 

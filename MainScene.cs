@@ -36,7 +36,7 @@ public partial class MainScene : Node3D
 	{
 		_initialCharacterPosition = Character.Position;
 
-		GetNode<Area3D>("%WinZone").AreaEntered += ShowWinScreen;
+		GetNode<Area3D>("WinPlatform/WinZone").AreaEntered += ShowWinScreen;
 	}
 
 	public override void _Process(double delta)

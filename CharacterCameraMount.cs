@@ -15,8 +15,9 @@ public partial class CharacterCameraMount : Node3D
 
 	public override void _Ready()
 	{
-		Engine.PhysicsTicksPerSecond = 144;
-		Engine.MaxFps = 144;
+		var fps = (int) MathF.Round(DisplayServer.ScreenGetRefreshRate()); // How to get this rather than hard-coding?
+		Engine.PhysicsTicksPerSecond = fps;
+		Engine.MaxFps = fps;
 	}
 
 	private MeshInstance3D DyeSea => GetNode<MeshInstance3D>("%Dye Sea");
