@@ -22,6 +22,8 @@ public partial class Platform : AnimatableBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+
+		if (Engine.IsEditorHint()) return;
 		var seconds = Time.GetTicksMsec() / 1000f;
 
 		var newTransform = _initialTransform;

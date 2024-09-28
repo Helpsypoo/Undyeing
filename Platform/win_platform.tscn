@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://fdcqda2osolj"]
 
-[ext_resource type="PackedScene" uid="uid://bhftp65bksnxe" path="res://platform.tscn" id="1_8l6yb"]
+[ext_resource type="PackedScene" uid="uid://bhftp65bksnxe" path="res://Platform/Circle Platform.tscn" id="1_8l6yb"]
 [ext_resource type="PackedScene" uid="uid://c8qouv888j8cb" path="res://Character/Source/flag.tscn" id="2_go5wx"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dxw0v"]
@@ -9,10 +9,11 @@ radius = 6.025
 [node name="WinPlatform" instance=ExtResource("1_8l6yb")]
 
 [node name="WinZone" type="Area3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WinZone" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38548, 0)
 shape = SubResource("CylinderShape3D_dxw0v")
 
 [node name="flag" parent="WinZone" index="1" instance=ExtResource("2_go5wx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)

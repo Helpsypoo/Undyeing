@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://be0gk5xr3yl5o"]
+
+[ext_resource type="Script" path="res://Platform/BoxPlatform.cs" id="1_uajo2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sw2ks"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6jho"]
+
+[node name="BoxPlatform" type="AnimatableBody3D"]
+script = ExtResource("1_uajo2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_sw2ks")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_v6jho")
