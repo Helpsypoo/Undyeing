@@ -14,7 +14,7 @@ public partial class CharacterController : CharacterBody3D
 	[Export] private float _dashDuration = 0.2f;
 	private float _lastDashTime = -999; // Big negative to avoid immediate dashes based on dash timing check
 	private int _dashesUsed;
-	
+	public bool Active = true;
 	private Camera3D Camera3D => GetViewport().GetCamera3D();
 	private AnimationTree AnimationTree => GetNode<AnimationTree>("character/AnimationTree");
 
@@ -36,7 +36,7 @@ public partial class CharacterController : CharacterBody3D
 		
 		var cameraRotation = Camera3D.GlobalRotation;
 		Vector3 direction = (Camera3D.GlobalBasis.Rotated(Camera3D.GlobalBasis.X, -cameraRotation.X) * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero && Active)
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
@@ -45,8 +45,9 @@ public partial class CharacterController : CharacterBody3D
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			var framesToStop = Active ? 0 : 100; 
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed / framesToStop);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed / framesToStop);
 		}
 		
 		
@@ -61,7 +62,7 @@ public partial class CharacterController : CharacterBody3D
 			_dashesUsed = 0;
 		}
 
-		if (Input.IsActionJustPressed("Jump"))
+		if (Input.IsActionJustPressed("Jump") && Active)
 		{
 			// Handle Jump.
 			if (onFloor)
@@ -85,7 +86,7 @@ public partial class CharacterController : CharacterBody3D
 			velocity = dashVelocity;
 			dashing = true;
 		}
-		else if (Input.IsActionJustPressed("Dash") && _dashesUsed < _maxDashes)
+		else if (Input.IsActionJustPressed("Dash") && _dashesUsed < _maxDashes && Active)
 		{
 			var dashVelocity = DashSpeed * (Basis * Vector3.Forward);  
 			velocity = dashVelocity;

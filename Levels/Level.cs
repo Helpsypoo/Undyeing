@@ -1,11 +1,13 @@
 using Godot;
 using System;
 
-public partial class MainScene : Node3D
+public partial class Level : Node3D
 {
 	private MeshInstance3D DyeSea => GetNode<MeshInstance3D>("%Dye Sea");
 	private CharacterController Character => GetNode<CharacterController>("CharacterBody3D");
-	private PackedScene DeathScreenScene => ResourceLoader.Load<PackedScene>("res://Restart menu/DeathMenu.tscn");
+	private static PackedScene DeathScreenScene => ResourceLoader.Load<PackedScene>("res://Restart menu/DeathMenu.tscn");
+	
+	[Export] private PackedScene _nextLevelScene; 
 
 	private Control _deathScreen;
 	private Control DeathScreen
@@ -43,12 +45,14 @@ public partial class MainScene : Node3D
 	{
 		if (_deathScreen == null && Character.GlobalPosition.Y < DyeSea.GlobalPosition.Y)
 		{
+			Character.Active = false;
 			AddChild(DeathScreen);
 		}
 	}
 
 	private void ShowWinScreen(Area3D area)
 	{
+		Character.Active = false;
 		AddChild(WinScreen);
 	}
 
@@ -60,6 +64,19 @@ public partial class MainScene : Node3D
 		WinScreen?.QueueFree();
 		_winScreen = null;
 		
+		
 		Character.Position = _initialCharacterPosition;
+		Character.Active = true;
+	}
+
+	public void LoadNext()
+	{
+		if (_nextLevelScene == null) return;
+		
+		WinScreen?.QueueFree();
+		_winScreen = null;
+		
+		GetParent().AddChild(_nextLevelScene.Instantiate<Node3D>());
+		QueueFree();
 	}
 }

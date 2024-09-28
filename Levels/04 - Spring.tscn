@@ -1,0 +1,136 @@
+[gd_scene load_steps=20 format=3 uid="uid://cthxospku0h6j"]
+
+[ext_resource type="Script" path="res://Levels/Level.cs" id="1_hupv6"]
+[ext_resource type="PackedScene" uid="uid://bp8vl6vu644wk" path="res://Levels/02 - Double Jump.tscn" id="2_hp861"]
+[ext_resource type="Script" path="res://Character/CharacterCameraMount.cs" id="3_lap4c"]
+[ext_resource type="Shader" path="res://Shaders/sky_colored_stars.gdshader" id="4_rln3n"]
+[ext_resource type="Script" path="res://Platform/Platform.cs" id="5_4dpsb"]
+[ext_resource type="Shader" path="res://Shaders/dye.gdshader" id="6_46dmb"]
+[ext_resource type="Script" path="res://FPSLabel.cs" id="7_csxyp"]
+[ext_resource type="PackedScene" uid="uid://fdcqda2osolj" path="res://Platform/win_platform.tscn" id="8_8gou3"]
+[ext_resource type="Script" path="res://Platform/PathRepeater.cs" id="9_lslag"]
+[ext_resource type="PackedScene" uid="uid://mhhdelr2h3nu" path="res://Character/character.tscn" id="10_rio8c"]
+[ext_resource type="PackedScene" uid="uid://be0gk5xr3yl5o" path="res://Platform/Box Platform.tscn" id="11_lca2y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_va8h5"]
+shader = ExtResource("4_rln3n")
+shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
+shader_parameter/star_base_color = Color(0.2, 1, 0, 1)
+shader_parameter/star_hue_offset = 1.0
+shader_parameter/star_intensity = 0.08
+shader_parameter/star_twinkle_speed = 0.8
+shader_parameter/star_twinkle_intensity = 0.2
+shader_parameter/layer_scale = 20.0
+shader_parameter/layer_scale_step = 10.0
+shader_parameter/layers_count = 3
+
+[sub_resource type="Sky" id="Sky_4xcht"]
+sky_material = SubResource("ShaderMaterial_va8h5")
+
+[sub_resource type="Environment" id="Environment_124yv"]
+background_mode = 2
+sky = SubResource("Sky_4xcht")
+
+[sub_resource type="BoxMesh" id="BoxMesh_n7y5j"]
+size = Vector3(5, 2, 6)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wcgaf"]
+points = PackedVector3Array(2.5, 1, 3, 2.5, -1, 3, 2.5, 1, -3, -2.5, 1, 3, -2.5, -1, 3, 2.5, -1, -3, -2.5, 1, -3, -2.5, -1, -3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gffif"]
+render_priority = 0
+shader = ExtResource("6_46dmb")
+shader_parameter/WATER_COL = Color(0.0284218, 0.344079, 0.805761, 1)
+shader_parameter/WATER2_COL = Color(0.0253775, 0.295814, 0.670548, 1)
+shader_parameter/FOAM_COL = Color(1, 1, 1, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(1280, 1280)
+shader_parameter/wave_speed = 2.0
+shader_parameter/wave_amplitude = 0.5
+shader_parameter/wave_frequency = 1.5
+shader_parameter/time_offset = 0.0
+shader_parameter/water_size = Vector2(2560, 2560)
+shader_parameter/water_transparency = 0.8
+shader_parameter/water_depth_factor = 0.1
+shader_parameter/foam_width = 0.5
+shader_parameter/foam_edge_softness = 0.05
+shader_parameter/foam_smoothness = 0.03
+shader_parameter/foam_distortion_speed = 0.5
+shader_parameter/foam_distortion_amount = 0.1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d3txd"]
+material = SubResource("ShaderMaterial_gffif")
+size = Vector2(12800, 12800)
+subdivide_width = 320
+subdivide_depth = 320
+
+[sub_resource type="Curve3D" id="Curve3D_a17bu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 30, 0, 5, 0, 0, 0, 0, 0, 0, 30, 0, -50, 0, 0, 0, 0, 0, 0, -30, 0, -50, 0, 0, 0, 0, 0, 0, -30, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_hupv6")
+_nextLevelScene = ExtResource("2_hp861")
+
+[node name="CharacterCameraMount" type="Node3D" parent="." node_paths=PackedStringArray("Character")]
+transform = Transform3D(1, 0, 0, 0, 0.953717, 0.300706, 0, -0.300706, 0.953717, 0, 2.44662, 0)
+script = ExtResource("3_lap4c")
+Character = NodePath("../CharacterBody3D")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterCameraMount"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.304)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_124yv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.592013, 0.37836, -0.711593, 0, 0.882948, 0.469472, 0.805928, -0.277933, 0.522717, -3.64407, 7.61673, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 8192.0
+
+[node name="Start" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1.00176, 0, 0, 0, 1.00176, 0, 0, 0, 1.00176, 0, -0.5, 0)
+script = ExtResource("5_4dpsb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Start"]
+mesh = SubResource("BoxMesh_n7y5j")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Start"]
+shape = SubResource("ConvexPolygonShape3D_wcgaf")
+
+[node name="Dye Sea" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+mesh = SubResource("PlaneMesh_d3txd")
+
+[node name="FPSLabel" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS
+"
+script = ExtResource("7_csxyp")
+
+[node name="WinPlatform" parent="." instance=ExtResource("8_8gou3")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.536951, 0, -30.6994)
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.9667)
+curve = SubResource("Curve3D_a17bu")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 5)
+script = ExtResource("9_lslag")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("10_rio8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.253433, 0.50176, -0.0113246)
+
+[node name="BoxPlatform" parent="." instance=ExtResource("11_lca2y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.9166, -15.155)
+Dimensions = Vector3(7, 1, 7)
+_wiggleAmplitude = Vector3(0, 1, 0)
+_wigglePeriod = Vector3(0, 1, 0)
