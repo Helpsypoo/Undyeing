@@ -45,9 +45,9 @@ public partial class CharacterController : CharacterBody3D
 		}
 		else
 		{
-			var framesToStop = Active ? 0 : 100; 
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed / framesToStop);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed / framesToStop);
+			// var framesToStop = Active ? 0 : 100; 
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 		}
 		
 		
