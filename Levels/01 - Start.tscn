@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxcveks8xij63"]
+[gd_scene load_steps=18 format=3 uid="uid://bxcveks8xij63"]
 
 [ext_resource type="Script" path="res://Levels/Level.cs" id="1_a4bfe"]
-[ext_resource type="PackedScene" uid="uid://bp8vl6vu644wk" path="res://Levels/02 - Double Jump.tscn" id="2_upy73"]
 [ext_resource type="Script" path="res://Character/CharacterCameraMount.cs" id="2_wj8da"]
 [ext_resource type="Shader" path="res://Shaders/sky_colored_stars.gdshader" id="3_gg4u2"]
 [ext_resource type="Script" path="res://Platform/Platform.cs" id="4_cey7m"]
@@ -72,7 +71,6 @@ point_count = 6
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_a4bfe")
-_nextLevelScene = ExtResource("2_upy73")
 
 [node name="CharacterCameraMount" type="Node3D" parent="." node_paths=PackedStringArray("Character")]
 transform = Transform3D(1, 0, 0, 0, 0.953717, 0.300706, 0, -0.300706, 0.953717, 0, 2.44662, 0)

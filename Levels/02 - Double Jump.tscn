@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Levels/Level.cs" id="1_oevq4"]
 [ext_resource type="Script" path="res://Character/CharacterCameraMount.cs" id="2_ilk3k"]
-[ext_resource type="PackedScene" uid="uid://dsvsn1uw1j1vl" path="res://Levels/03 - Dash.tscn" id="2_qwvis"]
 [ext_resource type="Shader" path="res://Shaders/sky_colored_stars.gdshader" id="3_xkbu5"]
 [ext_resource type="Script" path="res://Platform/Platform.cs" id="4_s8738"]
 [ext_resource type="Shader" path="res://Shaders/dye.gdshader" id="5_dgf45"]
@@ -64,7 +63,6 @@ subdivide_depth = 320
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oevq4")
-_nextLevelScene = ExtResource("2_qwvis")
 
 [node name="CharacterCameraMount" type="Node3D" parent="." node_paths=PackedStringArray("Character")]
 transform = Transform3D(1, 0, 0, 0, 0.953717, 0.300706, 0, -0.300706, 0.953717, 0, 2.44662, 0)

@@ -13,7 +13,7 @@ public partial class RestartMenu : Control
 		RestartButton.Pressed += mainScene.Restart;
 		if (NextLevelButton != null)
 		{
-			NextLevelButton.Pressed += mainScene.LoadNext;
+			NextLevelButton.Pressed += LevelLoader.Instance.LoadNext;
 		}
 
 		RestartButton.GrabFocus();
