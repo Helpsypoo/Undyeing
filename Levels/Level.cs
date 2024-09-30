@@ -43,9 +43,14 @@ public partial class Level : Node3D
 	{
 		if (_deathScreen == null && Character.GlobalPosition.Y < DyeSea.GlobalPosition.Y)
 		{
-			Character.Active = false;
-			AddChild(DeathScreen);
+			Death();
 		}
+	}
+
+	public virtual void Death()
+	{
+		Character.Active = false;
+		AddChild(DeathScreen);
 	}
 
 	private void ShowWinScreen(Area3D area)

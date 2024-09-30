@@ -1,18 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://c604m22uigpbv"]
+[gd_scene load_steps=19 format=3 uid="uid://b8x1yo7ouj88w"]
 
-[ext_resource type="Script" path="res://Levels/Level.cs" id="1_hupv6"]
-[ext_resource type="Script" path="res://Character/CharacterCameraMount.cs" id="3_lap4c"]
-[ext_resource type="Shader" path="res://Shaders/sky_colored_stars.gdshader" id="4_rln3n"]
-[ext_resource type="Script" path="res://Platform/Platform.cs" id="5_4dpsb"]
-[ext_resource type="Shader" path="res://Shaders/dye.gdshader" id="6_46dmb"]
-[ext_resource type="Script" path="res://FPSLabel.cs" id="7_csxyp"]
-[ext_resource type="PackedScene" uid="uid://fdcqda2osolj" path="res://Platform/win_platform.tscn" id="8_8gou3"]
-[ext_resource type="Script" path="res://Platform/PathRepeater.cs" id="9_lslag"]
-[ext_resource type="PackedScene" uid="uid://mhhdelr2h3nu" path="res://Character/character.tscn" id="10_rio8c"]
-[ext_resource type="PackedScene" uid="uid://be0gk5xr3yl5o" path="res://Platform/Box Platform.tscn" id="11_lca2y"]
+[ext_resource type="Script" path="res://Levels/Level_LMAO.cs" id="1_flo06"]
+[ext_resource type="Script" path="res://Character/CharacterCameraMount.cs" id="2_cvpqq"]
+[ext_resource type="Shader" path="res://Shaders/sky_colored_stars.gdshader" id="3_xpecs"]
+[ext_resource type="Script" path="res://Platform/Platform.cs" id="4_j5im5"]
+[ext_resource type="Shader" path="res://Shaders/dye.gdshader" id="5_38lje"]
+[ext_resource type="Script" path="res://FPSLabel.cs" id="6_fdkbt"]
+[ext_resource type="PackedScene" uid="uid://fdcqda2osolj" path="res://Platform/win_platform.tscn" id="7_iimcw"]
+[ext_resource type="Script" path="res://Platform/PathRepeater.cs" id="8_whnxa"]
+[ext_resource type="PackedScene" uid="uid://mhhdelr2h3nu" path="res://Character/character.tscn" id="9_sjjb4"]
+[ext_resource type="PackedScene" uid="uid://be0gk5xr3yl5o" path="res://Platform/Box Platform.tscn" id="10_7ia7j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_va8h5"]
-shader = ExtResource("4_rln3n")
+shader = ExtResource("3_xpecs")
 shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
 shader_parameter/star_base_color = Color(0.2, 1, 0, 1)
 shader_parameter/star_hue_offset = 1.0
@@ -38,7 +38,7 @@ points = PackedVector3Array(2.5, 1, 3, 2.5, -1, 3, 2.5, 1, -3, -2.5, 1, 3, -2.5,
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gffif"]
 render_priority = 0
-shader = ExtResource("6_46dmb")
+shader = ExtResource("5_38lje")
 shader_parameter/WATER_COL = Color(0.0284218, 0.344079, 0.805761, 1)
 shader_parameter/WATER2_COL = Color(0.0253775, 0.295814, 0.670548, 1)
 shader_parameter/FOAM_COL = Color(1, 1, 1, 1)
@@ -71,11 +71,11 @@ _data = {
 point_count = 6
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_hupv6")
+script = ExtResource("1_flo06")
 
 [node name="CharacterCameraMount" type="Node3D" parent="." node_paths=PackedStringArray("Character")]
 transform = Transform3D(1, 0, 0, 0, 0.953717, 0.300706, 0, -0.300706, 0.953717, 0, 2.44662, 0)
-script = ExtResource("3_lap4c")
+script = ExtResource("2_cvpqq")
 Character = NodePath("../CharacterBody3D")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterCameraMount"]
@@ -85,13 +85,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.304)
 environment = SubResource("Environment_124yv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.592013, 0.37836, -0.711593, 0, 0.882948, 0.469472, 0.805928, -0.277933, 0.522717, -3.64407, 7.61673, 0)
+transform = Transform3D(0.592013, 0.37836, -0.711593, 0, 0.882948, 0.469471, 0.805928, -0.277933, 0.522717, -3.64407, 7.61673, 0)
 shadow_enabled = true
 directional_shadow_max_distance = 8192.0
 
 [node name="Start" type="AnimatableBody3D" parent="."]
 transform = Transform3D(1.00176, 0, 0, 0, 1.00176, 0, 0, 0, 1.00176, 0, -0.5, 0)
-script = ExtResource("5_4dpsb")
+script = ExtResource("4_j5im5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Start"]
 mesh = SubResource("BoxMesh_n7y5j")
@@ -111,10 +111,10 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "FPS
 "
-script = ExtResource("7_csxyp")
+script = ExtResource("6_fdkbt")
 
-[node name="WinPlatform" parent="." instance=ExtResource("8_8gou3")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.536951, 0, -30.6994)
+[node name="WinPlatform" parent="." instance=ExtResource("7_iimcw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.536951, 0, -124.66)
 
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.9667)
@@ -122,13 +122,16 @@ curve = SubResource("Curve3D_a17bu")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 5)
-script = ExtResource("9_lslag")
+script = ExtResource("8_whnxa")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("10_rio8c")]
+[node name="CharacterBody3D" parent="." instance=ExtResource("9_sjjb4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.253433, 0.50176, -0.0113246)
 
-[node name="BoxPlatform" parent="." instance=ExtResource("11_lca2y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.9166, -15.155)
-Dimensions = Vector3(7, 1, 7)
-_wiggleAmplitude = Vector3(0, 1, 0)
-_wigglePeriod = Vector3(0, 1, 0)
+[node name="FakeSection" parent="." instance=ExtResource("10_7ia7j")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -109.378)
+Dimensions = Vector3(1, 1, 8.58)
+
+[node name="Walkway" parent="." instance=ExtResource("10_7ia7j")]
+transform = Transform3D(1, 0, 0, 0, 1, -5.96046e-08, 0, 5.96046e-08, 1, 0, 0.000165939, -54.684)
+Dimensions = Vector3(1, 1, 101.25)

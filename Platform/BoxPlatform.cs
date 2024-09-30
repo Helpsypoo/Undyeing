@@ -17,9 +17,14 @@ public partial class BoxPlatform : Platform
 
             MeshInstance3D.Position = new Vector3(0, -_dimensions.Y / 2, 0);
             CollisionShape3D.Position = new Vector3(0, -_dimensions.Y / 2, 0);
-            
-            ((BoxMesh)MeshInstance3D.Mesh).Size = _dimensions;
-            ((BoxShape3D)CollisionShape3D.Shape).Size = _dimensions;
+
+            var mesh = new BoxMesh(); 
+            mesh.Size = _dimensions;
+            MeshInstance3D.Mesh = mesh;
+                
+            var shape = new BoxShape3D(); 
+            shape.Size = _dimensions;
+            CollisionShape3D.Shape = shape;
         }
     }  
     

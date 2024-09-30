@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 
 [autoload]
 
-LevelLoader="*res://LevelLoader.cs"
+LevelLoader="*res://Levels/LevelLoader.cs"
 
 [dotnet]
 
@@ -97,6 +97,11 @@ Dash={
 ]
 }
 
+[physics]
+
+3d/physics_engine="GodotPhysics3D"
+
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 lights_and_shadows/directional_shadow/size=8192

@@ -27,6 +27,23 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 200
 text = "You Dyed"
 
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Or did you?
+Sort of confusing what's going on here.
+But rest assured it's deep.
+There's probably a Vaatividya about it."
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
